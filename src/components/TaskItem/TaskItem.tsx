@@ -20,7 +20,9 @@ export default function TaskItem(props: TaskItemProps) {
                     <option value="in-progress">In-Progress</option>
                     <option value="completed">Completed</option>
                 </select>
-                <button>Delete</button>
+                <button onClick={()=>
+                   props.onDelete(props.task.id)
+                }>Delete</button>
             </section>
         </li>
     )
