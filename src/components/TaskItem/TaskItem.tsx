@@ -14,6 +14,8 @@ export default function TaskItem(props: TaskItemProps) {
                 <select className="bg-black text-white" value={props.task.status} onChange={(e) => {
                     const newStatus = e.target.value as TaskStatus;
                     props.onStatusChange(props.task.id, newStatus);
+                    console.log(newStatus)
+                    console.log(props.task)
 
                 }}>
                     <option value="pending">Pending</option>
@@ -21,8 +23,8 @@ export default function TaskItem(props: TaskItemProps) {
                     <option value="completed">Completed</option>
                 </select>
                 <button onClick={()=>
-                   props.onDelete(props.task.id)
-                }>Delete</button>
+                   props.onDelete(props.task.id)}
+                >Delete</button>
             </section>
         </li>
     )

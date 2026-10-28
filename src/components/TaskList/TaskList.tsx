@@ -2,24 +2,15 @@
 import type { Task, TaskListProps, TaskStatus } from "../../types"
 import TaskItem from "../TaskItem/TaskItem"
 import type { TaskItemProps } from "../../types"
-import { useState} from "react"
-export default function TaskList(){
+import { useState } from "react"
+export default function TaskList(props: TaskListProps) {
+
    
-    
-    const task1: Task={ id:'1',title:"Task 1", description:'Description 1', status:'in-progress', priority:'medium',dueDate:'10/29/2026'}
-     const [task, setTask]=useState(task1)
-    const handleChange=(taskId:string, newStatus:TaskStatus)=>{
-     
-       setTask((task)=>({...task, status:newStatus}))
-       
-    }
-   const handleDelete = (taskId: string) => {
-        setTask((prevTasks) => prevTasks.filter((t) => t.id !== taskId));
-    };
-    console.log(task)
-    const taskItemProps: TaskItemProps={ task:task, onStatusChange:handleChange, onDelete:handleDelete }
-       return(<ul>
-        <TaskItem {...taskItemProps}/>
-   
+    return (<ul>
+        {props.tasks.map((task) => (
+            <TaskItem key={task.id} task={task} onStatusChange={props.onStatusChange} onDelete={props.onDelete} />
+        ))}
+
+
     </ul>)
 }
