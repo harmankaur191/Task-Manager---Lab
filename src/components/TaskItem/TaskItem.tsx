@@ -1,16 +1,16 @@
 import type { TaskItemProps, TaskStatus } from "../../types";
 
 export default function TaskItem(props: TaskItemProps) {
-    const style = " border-1 border-white-900 text-white p-8 flex flex w-full gap-10"
+    const style = "text-white p-8 flex flex w-full gap-10"
     return (
         <li className={style}>
-            <section className="border-white-900 border-4 justify-start">
-                {props.task.title}<br />
-                {props.task.description}<br />
-                Priority:  {props.task.priority}<br />
-                Due Date: {props.task.dueDate}
+            <section className="justify-start">
+                <h3>{props.task.title}</h3><br />
+                <p>{props.task.description}</p><br />
+               <p><label>Priority: </label>{props.task.priority}</p> <br />
+                <p><label>Due Date:</label> {props.task.dueDate}</p>
             </section>
-            <section className="bg-black text-white gap-10">
+            <section className="bg-black text-white gap-10 justify-end">
                 <select className="bg-black text-white" value={props.task.status} onChange={(e) => {
                     const newStatus = e.target.value as TaskStatus;
                     props.onStatusChange(props.task.id, newStatus);

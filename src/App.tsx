@@ -1,10 +1,11 @@
 import { useState } from "react";
 import TaskList from "./components/TaskList/TaskList";
-import type { Task, TaskListProps } from "./types";
+import type { Task, TaskFilterProps, TaskListProps } from "./types";
 import type { TaskStatus } from "./types";
+import TaskFilter from "./components/TaskFilter/TaskFilter";
 export default function App(){
  
-  const style="bg-black"
+  const style="bg-black text-white"
   const taskArr:Task[]=[{ id:'1',title:"Task 1", description:'Description 1', status:'in-progress', priority:'medium',dueDate:'10/29/2026'},
     { id:'2',title:"Task 2", description:'Description 2', status:'pending', priority:'low',dueDate:'10/31/2026'},
     { id:'3',title:"Task 3", description:'Description 3', status:'completed', priority:'high',dueDate:'11/01/2026'},
@@ -21,8 +22,23 @@ export default function App(){
   const handleDelete=(taskId:string)=>{
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   }
-  const taskListprops:TaskListProps={tasks:tasks, onStatusChange:handleStatusChange, onDelete:handleDelete}
-  return(<div className={style}>
+  
+ const [filter, setFilter]=useState<TaskFilterProps>({})
+
+  const onFilter= tasks.filter((task)=>{
+    if(filter.status && task.status!==filter.status){
+      return false;
+    }
+   if(filter.priority && task.priority!==filter.priority){
+    return false;
+   }
+   return true;
+  })
+  
+  const taskListprops:TaskListProps={tasks:onFilter, onStatusChange:handleStatusChange, onDelete:handleDelete}
+
+ return(<div className={style}>
+    <TaskFilter onFilterChange={setFilter}/>
     <TaskList {...taskListprops}/>
   </div>)
 }
