@@ -2,31 +2,21 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-Currently, two official plugins are available:
+## Reflection:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Unique key
+Each listItem has a unqiue id which is set as a key for each item
 
-## React Compiler
+### Considerations for filtering functionality
+Few considerations that were made are:
+1. When the app first loads, the no filters are selected keeping filter empty.
+2. Implementing and using separate useState for filters triggered onChange of filters to avoid synchronous issues.
+3. Filtering by both status and priority are chained sequentially and returning false immediately to get the tasks filtered through both.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### State updates for task status changes
+. The spread operator is used with newStatus to create a new task object instead of modifying the old object directly.
+. map() method loops through every task to match id of the task being changed ensuring correct task is updated.
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Challenges
+1. Understanding and rendering the components was quite challenging as I first tried creating objects in TaskList which did not work well so I had to do it in App() and passing the props to the components.
+2. Implementing filters was a good challenge as I used different useState for filters and rendering the taskList took a while. 
