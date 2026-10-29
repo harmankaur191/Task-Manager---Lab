@@ -5,7 +5,7 @@ import TaskItem from "../TaskItem/TaskItem"
 export default function TaskList(props: TaskListProps) {
 
    
-    return (<ul>
+    return (<ul className="gap-10 flex flex-col p-3">
         {props.tasks.map((task) => (
             <TaskItem key={task.id} task={task} onStatusChange={props.onStatusChange} onDelete={props.onDelete} />
         ))}
